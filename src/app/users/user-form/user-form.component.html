@@ -4,17 +4,17 @@
     <form class="form m-5" #userForm="ngForm">
         <br><br>
         <label class="form-label" for='txtName'>Name</label>
-        <input type='text' name='txtName' id='txtName' class='form-control ' [(ngModel)]="user.name">
+        <input type='text' name='txtName' id='txtName' class='form-control ' [disabled]="isUpdating || isSaving" [(ngModel)]="user.name">
         <br><br>
         <label class="form-label" for='txtLastName'>Last Name</label>
-        <input type='text' name='txtLastName' id='txtLastName' class='form-control' [(ngModel)]="user.lastName">
+        <input type='text' name='txtLastName' id='txtLastName' class='form-control' [disabled]="isUpdating || isSaving" [(ngModel)]="user.lastName">
         <br><br>
         <label class="form-label" for='txtAge'>Age</label>
-        <input type='number' name='txtAge' id='txtAge' class='form-control' [(ngModel)]="user.age">
+        <input type='number' name='txtAge' id='txtAge' class='form-control' [disabled]="isUpdating || isSaving" [(ngModel)]="user.age">
         <br><br>
-        <button *ngIf="!isEdit" class="btn btn-primary me-2" type="submit" (click)="saveUser()">Save</button>
-        <button *ngIf="isEdit" class="btn btn-primary me-2" type="submit" (click)="editUser()">Edit</button>
-        <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+        <button *ngIf="!isEdit" class="btn btn-primary me-2" type="submit" [disabled]="isSaving" (click)="saveUser()">Save</button>
+        <button *ngIf="isEdit" class="btn btn-primary me-2" type="submit" [disabled]="isUpdating" (click)="editUser()">Edit</button>
+        <button class="btn btn-secondary" [disabled]="isUpdating || isSaving" (click)="cancel()">Cancel</button>
     </form>
     
 </div>

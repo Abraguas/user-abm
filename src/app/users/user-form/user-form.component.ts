@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user-form.component.css']
 })
 export class UserFormComponent implements OnInit, OnDestroy {
+  isSaving = false;
+  isUpdating = false;
   isEdit: boolean;
   user: User;
   idParam: number;
@@ -45,7 +47,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
       alert("Error: fields");
       return
     }
+    this.isSaving = true;
     this.subscription.add(
+      
       this.userService.registerUser(this.user).subscribe({
         next: () => {
           alert("Success");
@@ -59,6 +63,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
     
   }
   editUser(): void{
+    this.isUpdating = true;
     this.subscription.add(
       this.userService.updateUser(this.user).subscribe({
         next: () => {
