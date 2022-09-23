@@ -2,20 +2,39 @@
 <div class="container">
 
     <form class="form m-5" #userForm="ngForm">
-        <br><br>
-        <label class="form-label" for='txtName'>Name</label>
-        <input type='text' name='txtName' id='txtName' class='form-control ' [disabled]="isUpdating || isSaving" [(ngModel)]="user.name">
-        <br><br>
-        <label class="form-label" for='txtLastName'>Last Name</label>
-        <input type='text' name='txtLastName' id='txtLastName' class='form-control' [disabled]="isUpdating || isSaving" [(ngModel)]="user.lastName">
-        <br><br>
-        <label class="form-label" for='txtAge'>Age</label>
-        <input type='number' name='txtAge' id='txtAge' class='form-control' [disabled]="isUpdating || isSaving" [(ngModel)]="user.age">
-        <br><br>
-        <button *ngIf="!isEdit" class="btn btn-primary me-2" type="submit" [disabled]="isSaving" (click)="saveUser()">Save</button>
-        <button *ngIf="isEdit" class="btn btn-primary me-2" type="submit" [disabled]="isUpdating" (click)="editUser()">Edit</button>
-        <button class="btn btn-secondary" [disabled]="isUpdating || isSaving" (click)="cancel()">Cancel</button>
+        <div class="mb-3">
+            <label class="form-label" for='txtName'>Name</label>
+            <input type='text' name='txtName' id='txtName' class='form-control ' [disabled]="isUpdating || isSaving"
+                [(ngModel)]="user.name" #txtName="ngModel" required
+                [class.is-invalid]="txtName.touched&&txtName.invalid">
+            <div *ngIf="txtName.touched&&txtName.invalid" class="invalid-feedback">
+                This field is required.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for='txtLastName'>Last Name</label>
+            <input type='text' name='txtLastName' id='txtLastName' class='form-control'
+                [disabled]="isUpdating || isSaving" [(ngModel)]="user.lastName" #txtLastName="ngModel" required
+                [class.is-invalid]="txtLastName.touched&&txtLastName.invalid">
+            <div *ngIf="txtLastName.touched&&txtLastName.invalid" class="invalid-feedback">
+                This field is required.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for='txtAge'>Age</label>
+            <input type='number' name='txtAge' id='txtAge' class='form-control' [disabled]="isUpdating || isSaving"
+                [(ngModel)]="user.age" #txtAge="ngModel" required [class.is-invalid]="txtAge.touched&&txtAge.invalid">
+            <div *ngIf="txtAge.touched&&txtAge.invalid" class="invalid-feedback">
+                This field is required.
+            </div>
+        </div>
+        <div class="mb-3">
+            <button *ngIf="!isEdit" class="btn btn-primary me-2" type="submit" [disabled]="isSaving"
+                (click)="saveUser()">Save</button>
+            <button *ngIf="isEdit" class="btn btn-primary me-2" type="submit" [disabled]="isUpdating"
+                (click)="editUser()">Edit</button>
+            <button class="btn btn-secondary" [disabled]="isUpdating || isSaving" (click)="cancel()">Cancel</button>
+        </div>
     </form>
-    
-</div>
 
+</div>
